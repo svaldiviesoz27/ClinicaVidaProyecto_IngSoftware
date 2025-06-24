@@ -103,12 +103,38 @@ const App = () => {
             <header className="bg-[#22335d] text-[#9280b6] p-4">
                 <h1 className="text-xl font-bold text-center mb-3">Organizador de Turnos Médicos</h1>
                      <nav className="flex flex-wrap justify-center gap-4">
-                        <button onClick={() => handleNavClick('addDoctor')} className="custom-button text-sm px-3 py-1.5 m-1">Agregar Médico</button>
-                        <button onClick={() => handleNavClick('legal')} className="custom-button text-sm px-3 py-1.5 m-1">Requerimientos Legales</button>
-                        <button onClick={() => handleNavClick('policies')} className="custom-button text-sm px-3 py-1.5 m-1">Políticas Internas</button>
-                        <button onClick={() => handleNavClick('hours')} className="custom-button text-sm px-3 py-1.5 m-1">Horas Laborales</button>
-                        <button onClick={() => handleNavClick('assign')} className="custom-button text-sm px-3 py-1.5 m-1">Asignar Turnos</button>
+                        <button
+                            onClick={() => handleNavClick('addDoctor')}
+                            className={`custom-button text-sm px-3 py-1.5 m-1 ${activeTab === 'addDoctor' ? 'active-button' : ''}`}
+                        >
+                            Agregar Médico
+                        </button>
+                        <button
+                            onClick={() => handleNavClick('legal')}
+                            className={`custom-button text-sm px-3 py-1.5 m-1 ${activeTab === 'legal' ? 'active-button' : ''}`}
+                        >
+                            Requerimientos Legales
+                        </button>
+                        <button
+                            onClick={() => handleNavClick('policies')}
+                            className={`custom-button text-sm px-3 py-1.5 m-1 ${activeTab === 'policies' ? 'active-button' : ''}`}
+                        >
+                            Políticas Internas
+                        </button>
+                        <button
+                            onClick={() => handleNavClick('hours')}
+                            className={`custom-button text-sm px-3 py-1.5 m-1 ${activeTab === 'hours' ? 'active-button' : ''}`}
+                        >
+                            Horas Laborales
+                        </button>
+                        <button
+                            onClick={() => handleNavClick('assign')}
+                            className={`custom-button text-sm px-3 py-1.5 m-1 ${activeTab === 'assign' ? 'active-button' : ''}`}
+                        >
+                            Asignar Turnos
+                        </button>
                     </nav>
+
             </header>
 
 
