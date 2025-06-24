@@ -51,7 +51,7 @@ body {
 
 /* Botón activo visualmente */
 .active-button {
-    background-color: #2f4a80 !important;
+    background-color: #042d80 !important;
     border: 2px solid #9280b6;
 }
 
@@ -151,3 +151,25 @@ th {
     border-radius: 10px;
 }
 
+.custom-button {
+  background: linear-gradient(to right, #6a5acd, #8a2be2); /* Degradado */
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: all 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+}
+
+.custom-button:hover {
+  transform: translateY(-2px); /* Efecto de profundidad */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el mouse */
+  background: linear-gradient(to right, #7b68ee, #9d3fe0); /* Degradado más claro */
+}
+
+.active-button {
+  background: linear-gradient(to right, #2d2757, #2a2452);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Sombra más profunda */
+  transform: translateY(-1px);
+}
