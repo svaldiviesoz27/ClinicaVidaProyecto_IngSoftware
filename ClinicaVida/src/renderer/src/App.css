@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f9eef5;
+    color: #9280b6;
+}
+
+.input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.5rem;
+    background: white;
+    color: #22335d;
+    font-family: 'Lato', sans-serif;
+}
+
+.custom-button {
+    background-color: #22335d;
+    color: #9280b6;
+    padding: 0.4rem 0.75rem;
+    border-radius: 12px; /* borde más suave */
+    font-weight: 600;
+    transition: background 0.3s ease;
+    font-family: 'Lato', sans-serif;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* toque suave de sombra opcional */
+}
+
+.custom-button:hover {
+    background-color: #1b2847;
+    cursor: pointer;
+}
+
+
+.custom-button:hover {
+    background-color: #1b2847;
+    cursor: pointer;
+}
