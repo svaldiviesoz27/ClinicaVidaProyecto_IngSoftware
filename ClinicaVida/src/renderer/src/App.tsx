@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Icon from "./assets/icon.png";
+import './App.css';
+
 const App = () => {
     const [activeTab, setActiveTab] = useState('dashboard');
     const [doctorData, setDoctorData] = useState({
@@ -8,21 +10,18 @@ const App = () => {
         birthDate: ''
     });
 
-    const handleNavClick = (tab) => {
+    const handleNavClick = (tab: string) => {
         setActiveTab(tab);
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } 
-        = e.target;
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
         setDoctorData({ ...doctorData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Aquí puedes manejar el envío de datos, como enviarlos a una API
         console.log('Datos del médico:', doctorData);
-        // Reiniciar el formulario
         setDoctorData({ name: '', idNumber: '', birthDate: '' });
     };
 
@@ -34,41 +33,41 @@ const App = () => {
                         <h2 className="text-2xl font-bold mb-4">Agregar Médico</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                                <label className="block text-sm font-medium">Nombre Completo</label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={doctorData.name}
                                     onChange={handleInputChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
+                                    className="input"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Número de Identificación</label>
+                                <label className="block text-sm font-medium">Número de Identificación</label>
                                 <input
                                     type="text"
                                     name="idNumber"
                                     value={doctorData.idNumber}
                                     onChange={handleInputChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
+                                    className="input"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Fecha de Nacimiento</label>
+                                <label className="block text-sm font-medium">Fecha de Nacimiento</label>
                                 <input
                                     type="date"
                                     name="birthDate"
                                     value={doctorData.birthDate}
                                     onChange={handleInputChange}
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
+                                    className="input"
                                 />
                             </div>
                             <button
                                 type="submit"
-                                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                                className="custom-button"
                             >
                                 Agregar Médico
                             </button>
@@ -84,31 +83,45 @@ const App = () => {
             case 'assign':
                 return <div className="p-4">Asignar tipo de turno a médicos entre semana</div>;
             default:
-                return <div className="p-4">Bienvenido al Organizador de Turnos Médicos</div>;
+                return null;
         }
     };
 
     return (
-        <div className="min-h-screen flex flex-col">
-           <img className="center-img" width="200px" height="200px" src={Icon} alt="" />
-            <header className="bg-blue-600 text-white p-4">
-                  <h1 className="text-xl font-bold">Organizador de Turnos Médicos</h1>
-                <nav className="mt-2">
-                    <button onClick={() => handleNavClick('addDoctor')} className="mr-2 bg-green-500 px-4 py-2 rounded">Agregar Médico</button>
-                    <button onClick={() => handleNavClick('legal')} className="mr-2 bg-purple-500 px-4 py-2 rounded">Consultar Requerimientos Legales</button>
-                    <button onClick={() => handleNavClick('policies')} className="mr-2 bg-yellow-500 px-4 py-2 rounded">Consultar Políticas Internas</button>
-                    <button onClick={() => handleNavClick('hours')} className="mr-2 bg-red-500 px-4 py-2 rounded">Calcular Horas Laborales</button>
-                    <button onClick={() => handleNavClick('assign')} className="bg-indigo-500 px-4 py-2 rounded">Asignar Turnos</button>
-                </nav>
+        <div className="min-h-screen flex flex-col bg-[#f9eef5] font-lato text-[#9280b6]">
+            <div className="flex justify-center mt-6 mb-2">
+                <img width="200px" height="200px" src={Icon} alt="Logo" />
+            </div>
+
+            {/* Texto de bienvenida arriba de los botones */}
+            {activeTab === 'dashboard' && (
+                <p className="text-center text-lg font-semibold mb-4">
+                    Bienvenido al Organizador de Turnos Médicos
+                </p>
+            )}
+
+            <header className="bg-[#22335d] text-[#9280b6] p-4">
+                <h1 className="text-xl font-bold text-center mb-3">Organizador de Turnos Médicos</h1>
+                     <nav className="flex flex-wrap justify-center gap-4">
+                        <button onClick={() => handleNavClick('addDoctor')} className="custom-button text-sm px-3 py-1.5 m-1">Agregar Médico</button>
+                        <button onClick={() => handleNavClick('legal')} className="custom-button text-sm px-3 py-1.5 m-1">Requerimientos Legales</button>
+                        <button onClick={() => handleNavClick('policies')} className="custom-button text-sm px-3 py-1.5 m-1">Políticas Internas</button>
+                        <button onClick={() => handleNavClick('hours')} className="custom-button text-sm px-3 py-1.5 m-1">Horas Laborales</button>
+                        <button onClick={() => handleNavClick('assign')} className="custom-button text-sm px-3 py-1.5 m-1">Asignar Turnos</button>
+                    </nav>
             </header>
+
+
             <main className="flex-grow p-4">
                 {renderContent()}
             </main>
-            <footer className="bg-gray-800 text-white text-center p-4">
+
+            <footer className="bg-[#22335d] text-[#9280b6] text-center p-4 mt-auto">
                 <p>&copy; {new Date().getFullYear()} Organizador de Turnos Médicos</p>
             </footer>
         </div>
     );
 };
 
-export default App
+export default App;
+
