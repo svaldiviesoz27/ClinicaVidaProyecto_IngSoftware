@@ -20,12 +20,12 @@ body {
     background-color: #22335d;
     color: #9280b6;
     padding: 0.4rem 0.75rem;
-    border-radius: 12px; /* borde más suave */
+    border-radius: 12px;
     font-weight: 600;
-    transition: background 0.3s ease;
+    transition: background 0.2s ease, transform 0.1s ease;
     font-family: 'Lato', sans-serif;
     border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* toque suave de sombra opcional */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .custom-button:hover {
@@ -33,8 +33,13 @@ body {
     cursor: pointer;
 }
 
+/* Efecto visual al hacer clic */
+.custom-button:active {
+    transform: scale(0.97);
+}
 
-.custom-button:hover {
-    background-color: #1b2847;
-    cursor: pointer;
+/* Botón activo visualmente */
+.active-button {
+    background-color: #2f4a80 !important;
+    border: 2px solid #9280b6;
 }
