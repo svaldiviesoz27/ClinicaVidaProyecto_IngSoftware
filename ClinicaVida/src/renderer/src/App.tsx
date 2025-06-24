@@ -92,7 +92,7 @@ const App = () => {
     };
 
     const handleDelete = async (id: number) => {
-        if (window.confirm('¿Estás seguro de que deseas eliminar este médico?')) {
+        if (window.confirm(' ¿Estás seguro de que deseas eliminar este médico?')) {
             await deleteDoctor(id);
             await loadDoctors();
         }
@@ -145,7 +145,7 @@ const App = () => {
                             checked={doctorData.hasSpecialty}
                             onChange={handleInputChange}
                         />
-                        <span className="ml-2">¿Tiene especialidad?</span>
+                        <span className="ml-2"> ¿Tiene especialidad?</span>
                     </label>
                 </div>
                 {showSpecialtyField && (
@@ -305,7 +305,7 @@ const App = () => {
             </div>
 
             <footer className="bg-[#22335d] text-[#9280b6] text-center p-4 mt-auto">
-                <p className="text-sm">© {new Date().getFullYear()} Organizador de Turnos Médicos</p>
+                <p className="text-sm">© {new Date().getFullYear()} Grupo 2.1 - Ingeniería de Software 2025-1 - Universidad Nacional de Colombia Sede Medellin</p>
             </footer>
         </div>
     );
