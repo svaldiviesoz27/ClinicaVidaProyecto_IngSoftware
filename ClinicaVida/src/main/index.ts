@@ -1,7 +1,11 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { join } from 'path'
+import * as path from 'node:path';
+
+let mainWindow: BrowserWindow | null = null;
+let childWindow: BrowserWindow | null = null;
 
 function createWindow(): void {
   // Create the browser window.
@@ -34,6 +38,34 @@ function createWindow(): void {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 }
+
+function createChildWindow() {
+  if (childWindow && !childWindow.isDestroyed()) {
+    childWindow.focus();
+    return;
+  }
+
+  childWindow = new BrowserWindow({
+    width: 600,
+    height: 500,
+    parent: mainWindow!,
+    modal: false,
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
+  });
+
+  childWindow.loadFile(
+    path.join(__dirname, '../renderer/index.html'),
+    { hash: 'child' }
+  );
+
+  childWindow.on('closed', () => (childWindow = null));
+}
+
+ipcMain.on('open-child-window', createChildWindow);
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
