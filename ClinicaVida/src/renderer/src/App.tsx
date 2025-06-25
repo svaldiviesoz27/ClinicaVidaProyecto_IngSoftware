@@ -156,6 +156,7 @@ const App = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+<<<<<<< Updated upstream
         
         const validationErrors = validateDoctorData(doctorData);
         if (validationErrors.length > 0) {
@@ -163,20 +164,23 @@ const App = () => {
             return;
         }
         
+=======
+
+>>>>>>> Stashed changes
         if (isEditing && currentDoctorId) {
             await updateDoctor({ id: currentDoctorId, ...doctorData });
         } else {
             await addDoctor(doctorData);
         }
-        
+
         resetForm();
         await loadDoctors();
     };
 
     const resetForm = () => {
-        setDoctorData({ 
-            name: '', 
-            idNumber: '', 
+        setDoctorData({
+            name: '',
+            idNumber: '',
             birthDate: '',
             hasSpecialty: false,
             specialty: '',
@@ -388,8 +392,8 @@ const App = () => {
                                 <td className="px-4 py-2">{doctor.idNumber}</td>
                                 <td className="px-4 py-2 capitalize">{doctor.group || 'No asignado'}</td>
                                 <td className="px-4 py-2">
-                                    {doctor.hasSpecialty 
-                                        ? `Especialista en ${doctor.specialty}` 
+                                    {doctor.hasSpecialty
+                                        ? `Especialista en ${doctor.specialty}`
                                         : 'Médico General'}
                                 </td>
                                 <td className="px-4 py-2">
