@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Icon from "./assets/icon.png";
 import { openDB, addDoctor, getDoctors, updateDoctor, deleteDoctor, Doctor } from "./database/db";
 import './App.css';
+import Calendario from "./components/calendario/calendario";
 
 // Tipos para las nuevas funcionalidades
 interface LegalRequirement {
@@ -530,44 +531,8 @@ const App = () => {
                 </button>
             </div>
             
-            {shiftAssignments.length > 0 && (
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white rounded-lg overflow-hidden">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="px-4 py-2 text-left">Médico</th>
-                                <th className="px-4 py-2 text-left">Día</th>
-                                <th className="px-4 py-2 text-left">Tipo de Turno</th>
-                                <th className="px-4 py-2 text-left">Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {shiftAssignments.map((assignment, index) => (
-                                <tr key={index} className="border-t border-gray-200">
-                                    <td className="px-4 py-2">{assignment.doctorName}</td>
-                                    <td className="px-4 py-2">{assignment.dayOfWeek}</td>
-                                    <td className="px-4 py-2">
-                                        <span className={`px-2 py-1 rounded-full text-xs ${
-                                            assignment.shiftType === 'C6' ? 'bg-green-100 text-green-800' :
-                                            assignment.shiftType === 'C8' ? 'bg-blue-100 text-blue-800' :
-                                            'bg-purple-100 text-purple-800'
-                                        }`}>
-                                            {assignment.shiftType}
-                                        </span>
-                                    </td>
-                                    <td className="px-4 py-2">
-                                        {assignment.assigned ? (
-                                            <span className="text-green-600">✓ Asignado</span>
-                                        ) : (
-                                            <span className="text-gray-500">- Disponible</span>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+           <Calendario/>
+
         </div>
     );
 
