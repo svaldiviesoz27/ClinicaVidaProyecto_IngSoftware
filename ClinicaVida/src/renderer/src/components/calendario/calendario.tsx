@@ -1,5 +1,12 @@
 import React from 'react';
 
+declare global {
+  interface Window {
+    electronAPI: { openChildWindow: () => void };
+  }
+}
+
+
 type Turno = {
   [dia: number]: string; // ej. { 1: "C8", 2: "C10", ... }
 };
@@ -25,8 +32,23 @@ const medicos: Medico[] = [
     nombre: 'Yandry Pedroza',
     especialidad: 'Medicina Interna',
     turnos: { 2: 'C8', 5: 'C4', 10: 'C10', 17: 'C10' }
+  },
+  {
+    nombre: 'Yandry Pedroza',
+    especialidad: 'Medicina Interna',
+    turnos: { 2: 'C8', 5: 'C4', 10: 'C10', 17: 'C10' }
+  },
+    {
+    nombre: 'Yandry Pedroza',
+    especialidad: 'Medicina Interna',
+    turnos: { 2: 'C8', 5: 'C4', 10: 'C10', 17: 'C10' }
+  },
+    {
+    nombre: 'Yandry Pedroza',
+    especialidad: 'Medicina Interna',
+    turnos: { 2: 'C8', 5: 'C4', 10: 'C10', 17: 'C10' }
   }
-  // Agrega más médicos aquí...
+  // Puedes agregar más médicos aquí...
 ];
 
 const especialidadColor = (especialidad: string) => {
@@ -40,29 +62,47 @@ const especialidadColor = (especialidad: string) => {
   return colores[especialidad] || '#ffffff';
 };
 
+
+
+
+
+
 const Calendario: React.FC = () => {
+
+  
   const diasMes = 30;
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Calendario de Turnos - Noviembre 2024</h2>
+    <div className="flex-1 overflow-auto p-4">
+      <h2 className="text-xl font-semibold mb-4">Calendario de Turnos - Julio 2025</h2>
 
-      {/* Este div envuelve la tabla y permite scroll horizontal */}
-      <div className="max-w-full overflow-x-auto border rounded-lg">
-        <table className="min-w-[1000px] border border-gray-300 text-sm">
+      {/* Contenedor con scroll both (horizontal y vertical) */}
+      <div 
+        className="border rounded-lg overflow-auto"
+      >
+        <table className="min-w-full border border-gray-300 text-sm overflow-auto">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="border px-2">#</th>
-              <th className="border px-2">Nombre</th>
-              <th className="border px-2">Especialidad</th>
+            <tr className="bg-gray-200 sticky top-0 z-10">
+              <th className="border px-2" scope="col">#</th>
+              <th className="border px-2" scope="col">Nombre</th>
+              <th className="border px-2" scope="col">Especialidad</th>
               {[...Array(diasMes)].map((_, i) => (
-                <th key={i + 1} className="border px-1">{i + 1}</th>
+                <th 
+                  key={i + 1} 
+                  className="border px-1 sticky top-0 bg-gray-200"
+                  scope="col"
+                >
+                  {i + 1}
+                </th>
               ))}
             </tr>
           </thead>
           <tbody>
             {medicos.map((medico, index) => (
-              <tr key={index} style={{ backgroundColor: especialidadColor(medico.especialidad) }}>
+              <tr 
+                key={index} 
+                style={{ backgroundColor: especialidadColor(medico.especialidad) }}
+              >
                 <td className="border px-2">{index + 1}</td>
                 <td className="border px-2">{medico.nombre}</td>
                 <td className="border px-2">Médico soporte - {medico.especialidad}</td>
@@ -80,4 +120,4 @@ const Calendario: React.FC = () => {
   );
 };
 
-export default Calendario;
+export default Calendario;
