@@ -55,6 +55,9 @@ const App = () => {
     const [monthlyHours, setMonthlyHours] = useState<MonthlyHours[]>([]);
     const [selectedMonth, setSelectedMonth] = useState<string>(new Date().toISOString().slice(0, 7));
     const [shiftAssignments, setShiftAssignments] = useState<ShiftAssignment[]>([]);
+    
+    // Estado para controlar el modal del calendario
+    const [showCalendarModal, setShowCalendarModal] = useState<boolean>(false);
 
     // Datos estáticos para requerimientos legales
     const legalRequirements: LegalRequirement[] = [
@@ -261,6 +264,46 @@ const App = () => {
         
         setShiftAssignments(assignments);
     };
+
+    // Función para abrir el modal del calendario
+    const handleOpenCalendarModal = () => {
+        setShowCalendarModal(true);
+    };
+
+    // Función para cerrar el modal del calendario
+    const handleCloseCalendarModal = () => {
+        setShowCalendarModal(false);
+    };
+
+    const CalendarModal = () => {
+    if (!showCalendarModal) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] flex flex-col">
+                {/* Header del modal */}
+                <div className="flex justify-between items-center p-4 border-b border-gray-200">
+                    <h3 className="text-xl font-bold text-gray-900">Cuadro de Turnos</h3>
+                    <button
+                        onClick={handleCloseCalendarModal}
+                        className="text-gray-400 hover:text-gray-600 transition-colors"
+                    >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                {/* Contenido del modal con scroll */}
+                <div className="flex-1 overflow-auto p-4">
+                    <div className="min-w-full">
+                        <Calendario />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
     const renderAddDoctor = () => (
         <div className="doctor-form-container">
@@ -520,21 +563,73 @@ const App = () => {
     );
 
     const renderShiftAssignment = () => (
-        <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">Asignar Turnos Entre Semana</h2>
-            <div className="mb-4">
-                <button
-                    onClick={generateShiftAssignments}
-                    className="custom-button"
-                >
-                    Generar Asignaciones
-                </button>
-            </div>
-            
-           <Calendario/>
-
+    <div className="p-4">
+        <h2 className="text-2xl font-bold mb-4">Asignar Turnos Entre Semana</h2>
+        <div className="mb-4">
+            <button
+                onClick={generateShiftAssignments}
+                className="custom-button mr-4"
+            >
+                Generar Asignaciones
+            </button>
+            <button
+                onClick={handleOpenCalendarModal}
+                className="custom-button bg-green-600 hover:bg-green-700"
+            >
+                Generar Cuadro de Turnos
+            </button>
         </div>
-    );
+        
+        {/* Información adicional */}
+        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+            <p className="text-blue-800">
+                <strong>Instrucciones:</strong> Presiona "Generar Cuadro de Turnos" para ver el calendario de turnos en una ventana emergente.
+            </p>
+        </div>
+
+        {/* Mostrar las asignaciones solo si existen y NO estamos en modal */}
+        {shiftAssignments.length > 0 && (
+            <div className="mt-6">
+                <h3 className="text-lg font-bold mb-3">Asignaciones Generadas</h3>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white rounded-lg overflow-hidden">
+                        <thead className="bg-gray-100">
+                            <tr>
+                                <th className="px-4 py-2 text-left">Médico</th>
+                                <th className="px-4 py-2 text-left">Día</th>
+                                <th className="px-4 py-2 text-left">Turno</th>
+                                <th className="px-4 py-2 text-left">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {shiftAssignments.slice(0, 10).map((assignment, index) => (
+                                <tr key={index} className="border-t border-gray-200">
+                                    <td className="px-4 py-2">{assignment.doctorName}</td>
+                                    <td className="px-4 py-2">{assignment.dayOfWeek}</td>
+                                    <td className="px-4 py-2">{assignment.shiftType}</td>
+                                    <td className="px-4 py-2">
+                                        <span className={`px-2 py-1 rounded text-xs ${
+                                            assignment.assigned 
+                                                ? 'bg-green-100 text-green-800' 
+                                                : 'bg-red-100 text-red-800'
+                                        }`}>
+                                            {assignment.assigned ? 'Asignado' : 'Disponible'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                {shiftAssignments.length > 10 && (
+                    <p className="text-gray-500 text-sm mt-2">
+                        Mostrando 10 de {shiftAssignments.length} asignaciones
+                    </p>
+                )}
+            </div>
+        )}
+    </div>
+);
 
     const renderContent = () => {
         switch (activeTab) {
@@ -641,6 +736,9 @@ const App = () => {
             <footer className="bg-[#22335d] text-[#9280b6] text-center p-4 mt-auto">
                 <p className="text-sm">© {new Date().getFullYear()} Grupo 2.1 - Ingeniería de Software 2025-1 - Universidad Nacional de Colombia Sede Medellín</p>
             </footer>
+
+            {/* Modal del calendario */}
+            <CalendarModal />
         </div>
     );
 };
