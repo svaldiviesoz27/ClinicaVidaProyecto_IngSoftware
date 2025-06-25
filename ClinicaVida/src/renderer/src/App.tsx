@@ -3,6 +3,15 @@ import Icon from "./assets/icon.png";
 import { openDB, addDoctor, getDoctors, updateDoctor, deleteDoctor, Doctor } from "./database/db";
 import './App.css';
 import Calendario from "./components/calendario/calendario";
+import ChildPage from "./components/calendario/ChildPage";
+import Ap from "./components/calendario/Ap";
+
+
+declare global {
+    interface Window {
+        electronAPI: { openChildWindow: () => void };
+    }
+    }
 
 // Tipos para las nuevas funcionalidades
 interface LegalRequirement {
@@ -62,19 +71,19 @@ const App = () => {
     // Datos estáticos para requerimientos legales
     const legalRequirements: LegalRequirement[] = [
         {
-            id: 'RN001',
+            id: ' ',
             title: 'Jornada Laboral Máxima',
             description: 'Máximo 60 horas semanales de trabajo según legislación colombiana',
             type: 'law'
         },
         {
-            id: 'RN002',
+            id: ' ',
             title: 'Descanso Post Turno Nocturno',
             description: 'Derecho a descanso después de turno nocturno',
             type: 'law'
         },
         {
-            id: 'RN003',
+            id: ' ',
             title: 'Días Festivos y Domingos',
             description: 'Aplicar fórmula: (días del mes - (4+n)) * (44/6) para cálculo de horas',
             type: 'regulation'
@@ -84,19 +93,19 @@ const App = () => {
     // Datos estáticos para políticas internas
     const internalPolicies: InternalPolicy[] = [
         {
-            id: 'RN011',
+            id: ' ',
             title: 'Turnos por Especialidad',
             description: 'Médicos especializados solo pueden tomar turnos C8, médicos de refuerzo solo C6',
             category: 'specialties'
         },
         {
-            id: 'RN012',
+            id: ' ',
             title: 'Grupos de Trabajo',
             description: 'Solo puede pertenecer a un grupo principal: urgencias, hospitalización o refuerzo',
             category: 'groups'
         },
         {
-            id: 'RN013',
+            id: '',
             title: 'Especialidades Requeridas',
             description: 'Para hospitalización: oncología, hemato-oncología, medicina interna',
             category: 'specialties'
@@ -275,6 +284,7 @@ const App = () => {
         setShowCalendarModal(false);
     };
 
+
     const CalendarModal = () => {
     if (!showCalendarModal) return null;
 
@@ -285,7 +295,6 @@ const App = () => {
                 <div className="flex justify-between items-center p-4 border-b border-gray-200">
                     <h3 className="text-xl font-bold text-gray-900">Cuadro de Turnos</h3>
                     <button
-                        onClick={handleCloseCalendarModal}
                         className="text-gray-400 hover:text-gray-600 transition-colors"
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -297,13 +306,15 @@ const App = () => {
                 {/* Contenido del modal con scroll */}
                 <div className="flex-1 overflow-auto p-4">
                     <div className="min-w-full">
-                        <Calendario />
+
                     </div>
                 </div>
             </div>
         </div>
     );
 };
+
+
 
     const renderAddDoctor = () => (
         <div className="doctor-form-container">
@@ -567,13 +578,7 @@ const App = () => {
         <h2 className="text-2xl font-bold mb-4">Asignar Turnos Entre Semana</h2>
         <div className="mb-4">
             <button
-                onClick={generateShiftAssignments}
-                className="custom-button mr-4"
-            >
-                Generar Asignaciones
-            </button>
-            <button
-                onClick={handleOpenCalendarModal}
+                onClick={() => window.electronAPI.openChildWindow()}
                 className="custom-button bg-green-600 hover:bg-green-700"
             >
                 Generar Cuadro de Turnos

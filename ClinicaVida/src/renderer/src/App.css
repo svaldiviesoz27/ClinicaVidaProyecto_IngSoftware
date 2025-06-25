@@ -26,18 +26,7 @@ body {
     margin-bottom: 1rem; /* Espaciado entre inputs */
 }
 
-.custom-button {
-    background-color: #22335d;
-    color: #9280b6;
-    padding: 0.6rem 1rem; /* Aumenta el padding */
-    border-radius: 12px;
-    font-weight: 600;
-    transition: background 0.2s ease, transform 0.1s ease;
-    font-family: 'Lato', sans-serif;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0.5rem 0; /* Espaciado entre botones */
-}
+
 
 .custom-button:hover {
     background-color: #1b2847;
@@ -172,4 +161,17 @@ th {
   background: linear-gradient(to right, #2d2757, #2a2452);
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25); /* Sombra más profunda */
   transform: translateY(-1px);
+}
+
+.custom-button {
+    background-color: #3f1855;
+    color: #e5e2eb;
+    padding: 0.6rem 1rem; /* Aumenta el padding */
+    border-radius: 12px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s ease;
+    font-family: 'Lato', sans-serif;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0.5rem; /* Espaciado entre botones */
 }
